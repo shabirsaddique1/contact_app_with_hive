@@ -7,7 +7,7 @@ import '../models/home_view_model.dart';
 import 'add_contact_sheet.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,12 @@ class HomeView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.blueAccent,
-              title: Text(
+              title: const Text(
                 "Contact App",
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
               onPressed: () {
                 showModalBottomSheet(
                   isScrollControlled: true,
@@ -42,12 +42,12 @@ class HomeView extends StatelessWidget {
                 builder: (context, contacts) {
                   if (contacts.hasData) {
                     viewModel.contactList = contacts.data!;
-                    return Column(
+                    return contacts.data!.isEmpty ? const Center(child: Text('No Contact Found yet.. .')): Column(
                       children: [
-                        Container(
-                          padding: EdgeInsets.all(12),
+                        contacts.data!.isEmpty ? const SizedBox.shrink(): Container(
+                          padding: const EdgeInsets.all(12),
                           child: TextField(
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               hintText: "Search",
                             ),
                             onChanged: (value) {
@@ -77,7 +77,7 @@ class HomeView extends StatelessWidget {
                                           children: [
                                             Text(
                                                 '${contacts.data![index].firstName}'),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 4,
                                             ),
                                             Text(
@@ -87,13 +87,13 @@ class HomeView extends StatelessWidget {
                                         subtitle: Text(
                                             '${contacts.data![index].phoneNumber}'),
                                       )
-                                    : SizedBox.shrink();
+                                    : const SizedBox.shrink();
                               }),
                         ),
                       ],
                     );
                   } else {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
